@@ -1,4 +1,5 @@
 from gevent import monkey
+
 monkey.patch_all()
 
 """遵循WSGI的mini-web服务器"""
@@ -54,7 +55,6 @@ class HTTPServer(object):
             # 接受一个客户端连接  使用一个协程为客户服务
             gevent.spawn(self.deal_with_request, new_socket, new_addr)
 
-
     def deal_with_request(self, client_socket, client_addr):
         """针对每个客户端 使用这个函数进行服务"""
         print("接受到来自%s的连接请求" % str(client_addr))
@@ -109,7 +109,7 @@ class HTTPServer(object):
         # ./static + /index.html
         # 根据用户请求的路径 读取指定路径下的文件数据 将数据 以HTTP响应报文格式发送给浏览器即可
         file_name = os.path.join(STATIC_ROOT, path_info)
-        print('要请求的静态文件是:',file_name)
+        print('要请求的静态文件是:', file_name)
 
         # try:
         #     # 根据用户请求的路径 读取指定路径下的文件数据 将数据 以HTTP响应报文格式发送给浏览器即可
