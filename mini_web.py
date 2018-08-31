@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from gevent import monkey
 
 monkey.patch_all()
@@ -34,7 +35,7 @@ class HTTPServer(object):
     def __init__(self, port, app):
         """初识化操作"""
         # 1 创建TCP套接字
-        server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server_socket = socket.socket()
 
         # 2 设置地址重用选项-让服务器重启之后可以理解重新使用绑定的端口
         server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -110,50 +111,6 @@ class HTTPServer(object):
         # 根据用户请求的路径 读取指定路径下的文件数据 将数据 以HTTP响应报文格式发送给浏览器即可
         file_name = os.path.join(STATIC_ROOT, path_info)
         print('要请求的静态文件是:', file_name)
-
-        # try:
-        #     # 根据用户请求的路径 读取指定路径下的文件数据 将数据 以HTTP响应报文格式发送给浏览器即可
-        #     print("./static/" + path_info)
-        #     file = open("./static/" + path_info, "rb")
-        #
-        #     file_data = file.read()  # bytes
-        #     file.close()
-        # except FileNotFoundError as e:
-        #     print(e)
-        #     # 用户请求的资源路径不存在 应该返回404 Not Found
-        #     # 响应行
-        #     response_line = "HTTP/1.1 404 Not Found\r\n"
-        #
-        #     # 响应头
-        #     response_headers = "Server: PWS4.0\r\n"
-        #
-        #     # 响应体
-        #     response_body = "ERROR!!!!!!!!!!"
-        #
-        #     response_data = response_line + response_headers + "\r\n" + response_body
-        #
-        #     # send函数的返回值代表 成功发送的字节数----> 可能一下不能全部发送完数据
-        #     client_socket.send(response_data.encode())
-        # else:
-        #     # 给客户端回HTTP响应报文
-        #     # 响应行
-        #     response_line = "HTTP/1.1 200 OK\r\n"
-        #
-        #     # 响应头
-        #     response_headers = "Server: PWS4.0\r\n"
-        #
-        #     # 响应体
-        #     response_body = file_data
-        #
-        #     # 拼接响应报文  发送给客户端
-        #     response_data = (response_line + response_headers + '\r\n').encode() + response_body
-        #     # send函数的返回值代表 成功发送的字节数----> 可能一下不能全部发送完数据
-        #     # client_socket.send(response_data)
-        #     client_socket.sendall(response_data)
-        #
-        # finally:
-        #     # 关掉套接字
-        #     client_socket.close()
 
 
         if os.path.isfile(file_name):

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 请求数据处理——相当于web应用
 它是由WSGI服务器来调用
@@ -32,8 +33,8 @@ def index(file_name):
     file = os.path.join(template_root, file_name)
     print(os.path.isfile(file))
     if os.path.isfile(file):
-        with open(file) as f:
-            content = f.read()
+        with open(file,'rb') as f:
+            content = f.read().decode()
         return content
     else:
         return '<h1>404 页面不存在</h1>'
@@ -45,10 +46,11 @@ def center(file_name):
     # file_name = file_name.lstrip('/')
     # print(file_name)
     file = os.path.join(template_root, file_name)
+    print(os.path.isfile(file))
     print(file)
     if os.path.exists(file):
-        with open(file) as f:
-            content = f.read()
+        with open(file,'rb') as f:
+            content = f.read().decode()
         return content
     else:
         return '<h1>404 页面不存在</h1>'
